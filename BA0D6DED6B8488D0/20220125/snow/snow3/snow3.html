@@ -37,17 +37,17 @@ text-shadow: 0px 1px 0px #999, 0px 2px 0px #888, 0px 3px 0px #777, 0px 4px 0px #
     -webkit-box-reflect:below 10px;
 }
 .text{
-    width: 300px;
-    /*height: 200px;*/
+    /*width: 500px;
+    height: 200px;
     position: absolute;
     left: 50%;
-    margin-left: -150px;
+    margin-left: -150px;*/
     background-image: -webkit-linear-gradient(left,blue,#66ffff 10%,#cc00ff 20%,#CC00CC 30%, #CCCCFF 40%, #00FFFF 50%,#CCCCFF 60%,#CC00CC 70%,#CC00FF 80%,#66FFFF 90%,blue 100%);
     -webkit-text-fill-color: transparent;/* 将字体设置成透明色 */
     -webkit-background-clip: text;/* 裁剪背景图，使文字作为裁剪区域向外裁剪 */
     -webkit-background-size: 200% 100%; 
     -webkit-animation: masked-animation 4s linear infinite;
-    font-size: 35px;
+    font-size: 100px;
 }
 @keyframes masked-animation {
     0% {
@@ -116,7 +116,7 @@ text-shadow: 0px 1px 0px #999, 0px 2px 0px #888, 0px 3px 0px #777, 0px 4px 0px #
                         d.style.color = that.snowflakeColor[that.random(that.snowflakeColor.length)];
                         d.style.position = "absolute";
                         // 位置是随机的 top(0- -99) left (0 - that.maxWidth*2/3-1)
-                        d.style.left = that.random(that.maxWidth*2/3) + "px";
+                        d.style.left = -1/4*that.maxWidth+that.random(that.maxWidth) + "px";
                         d.style.top = -that.random(100) + "px";
                         // 速度
                         d.vx = 1+that.random(3);
