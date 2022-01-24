@@ -6,7 +6,6 @@ body {
   overflow: hidden;
   padding: 0;
   margin: 0;
-  background:#a1a3a6;
 }
 
 #cake {
@@ -158,7 +157,7 @@ body {
 
 body {
   position: relative;
-  background: #f4f5fb;
+  background: #000000;
   display: -webkit-box;
   display: flex;
   -webkit-box-align: center;
