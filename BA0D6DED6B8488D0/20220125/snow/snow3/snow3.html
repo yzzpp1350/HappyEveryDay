@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<style>
+p{
+	text-align:center;
+}
+a{
+ text-decoration:none;
+}
+body{
+    text-align: center;
+}
+.vintage1{
+background: #EEE url(data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAIAAAAmkwkpAAAAHklEQVQImWNkYGBgYGD4//8/A5wF5SBYyAr+//8PAPOCFO0Q2zq7AAAAAElFTkSuQmCC) repeat;
+text-shadow: 5px -5px black, 4px -4px white;
+font-weight: bold;
+-webkit-text-fill-color: transparent;
+-webkit-background-clip: text }
+.vintage2{
+color: transparent;
+-webkit-text-stroke: 1px red;
+letter-spacing: 0.04em;}
+.vintage3 {
+color: transparent;
+background-color : blue;
+text-shadow : rgba(255,255,255,0.5) 0 5px 6px, rgba(255,255,255,0.2) 1px 3px 3px;
+-webkit-background-clip : text;
+}
+.vintage4{
+color: gold;
+letter-spacing: 0;
+text-shadow: 0px 1px 0px #999, 0px 2px 0px #888, 0px 3px 0px #777, 0px 4px 0px #666, 0px 5px 0px #555, 0px 6px 0px #444, 0px 7px 0px #333, 0px 8px 7px #001135 }
+.vintage5{
+    font-family:cursive;text-shadow:6px 2px 2px #333;color:deeppink
+}
+.text-reflect-base{
+    color: palegreen;
+    -webkit-box-reflect:below 10px;
+}
+.text{
+    width: 300px;
+    /*height: 200px;*/
+    position: absolute;
+    left: 50%;
+    margin-left: -150px;
+    background-image: -webkit-linear-gradient(left,blue,#66ffff 10%,#cc00ff 20%,#CC00CC 30%, #CCCCFF 40%, #00FFFF 50%,#CCCCFF 60%,#CC00CC 70%,#CC00FF 80%,#66FFFF 90%,blue 100%);
+    -webkit-text-fill-color: transparent;/* 将字体设置成透明色 */
+    -webkit-background-clip: text;/* 裁剪背景图，使文字作为裁剪区域向外裁剪 */
+    -webkit-background-size: 200% 100%; 
+    -webkit-animation: masked-animation 4s linear infinite;
+    font-size: 35px;
+}
+@keyframes masked-animation {
+    0% {
+        background-position: 0  0;
+    }
+    100% {
+        background-position: -100%  0;
+    }
+}
+</style>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>下雪效果实现</title>
+    <link rel="stylesheet" type="text/css" href="reset.css">
+    <style type="text/css">
+        body,html{
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body style="background: black;">
+<h1 class="text" style="top:200px;">下不下雪没关系</h1>
+<h1 class="text" style="top:300px;">天天开心就好啦</h1>
+    <script type="text/javascript">
+        var snowflakes = {
+            arr:[],// 数组盛放元素
+            snowflake : [//雪花类型
+                        '❉',
+                        '❈',
+                        '*',
+                        '✲',
+                        '❀',
+                        '❃'
+                        ],
+             snowflakeColor : [   //颜色库
+                        "white",
+                        "#fffffb",
+                        "#fffef9",
+                        "#f2eada",
+                        "#90d7ec",
+                        "#afb4db"
+                        ],
+             random : function (num){
+                return Math.floor(Math.random()*num);// 获得一个num-1的整数
+             },
+             init : function (num){
+                // 最多个数
+                this.maxlength =  num;
+                // 边界
+                this.maxWidth = (document.documentElement.clientWidth || document.body.clientWidth) + 20;
+                // 边界
+                this.maxHeight = (document.documentElement.clientHeight || document.body.clientHeight) + 20;
+                this.create();
+                this.move();
+             },
+             // 创建
+             create : function (){
+                var that = this;
+                setInterval(function (){
+                    // 当数组中的数量，比最大数量要小的时候 开始创建
+                    if( that.arr.length < that.maxlength){
+                        var d = document.createElement("div");
+                        // 内容和 颜色是随机的 颜色和文字库里面的
+                        d.innerHTML = that.snowflake[that.random(that.snowflake.length)];
+                        d.style.color = that.snowflakeColor[that.random(that.snowflakeColor.length)];
+                        d.style.position = "absolute";
+                        // 位置是随机的 top(0- -99) left (0 - that.maxWidth*2/3-1)
+                        d.style.left = that.random(that.maxWidth*2/3) + "px";
+                        d.style.top = -that.random(100) + "px";
+                        // 速度
+                        d.vx = 1+that.random(3);
+                        d.vy = 2+that.random(3);
+                        // 数组添加元素, body 添加元素
+                        document.body.appendChild(d);
+                        that.arr.push(d)
+                    }
+                },100)
+             },
+             // 运动
+             move : function (){
+                var that = this;
+                var arr = that.arr;
+                setInterval(function (){ 
+                    // 循环数组中的每一个元素
+                    for(var i = 0 ; i < arr.length ; i ++ ){
+                        // 替换位置
+                        arr[i].style.left = arr[i].offsetLeft + arr[i].vx + "px";
+                        arr[i].style.top  = arr[i].offsetTop + arr[i].vy + 'px';
+                        // 判断边界 删除元素
+                        if (arr[i].offsetTop >= that.maxHeight || arr[i].offsetLeft >= that.maxWidth) {
+                            document.body.removeChild(arr[i]);
+                            arr.splice(i,1);
+                        }
+                    }
+                },50)
+             }
+        }   
+        window.onload = function (){
+            snowflakes.init(200);
+        }   
+    </script>
+</body>
+</html>
