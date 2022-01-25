@@ -158,7 +158,8 @@ body {
 
 body {
   position: relative;
-  background: #f4f5fb;
+  background: #000000;
+  opacity:0.7;
   display: -webkit-box;
   display: flex;
   -webkit-box-align: center;
