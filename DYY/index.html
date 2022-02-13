@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>LOVE</title>
+<style>
+ canvas{
+             margin:0 auto;
+             position: absolute;
+             left: 0; 
+             right: 0; 
+             
+             /*border: 1px solid black;*/
+         }
+		 
+.text{
+    width: 300px;
+    /*height: 200px;*/
+    position: absolute;
+    left: 50%;
+    margin-left: -150px;
+    background-image: -webkit-linear-gradient(left,blue,#66ffff 10%,#cc00ff 20%,#CC00CC 30%, #CCCCFF 40%, #00FFFF 50%,#CCCCFF 60%,#CC00CC 70%,#CC00FF 80%,#66FFFF 90%,blue 100%);
+    -webkit-text-fill-color: transparent;/* 将字体设置成透明色 */
+    -webkit-background-clip: text;/* 裁剪背景图，使文字作为裁剪区域向外裁剪 */
+    -webkit-background-size: 200% 100%; 
+    -webkit-animation: masked-animation 4s linear infinite;
+    font-size: 35px;
+}
+</style>
+</head>
+<body>
+  <canvas type="2d" id="myCanvas"></canvas>
+  <image id="flower" src="love.png" style="display:none;"></image>
+  <h1 class="text" style="text-align: center; margin-top: 540px; font-size: xxx-large;">YZZ❤DYY</h1>
+<script type="text/javascript">
+
+  function createPoint(x,y,z) {
+    var div = document.createElement("div");
+    div.className = "item";
+    div.style.left = x + "px";
+    div.style.top = y + "px";
+    div.style.backgroundColor = c;
+    document.getElementById("xx-box").appendChild(div);
+  }
+  function heartShape(r,dx,dy,c){//r:大小;dx:水平偏移;dy:垂直偏移;c:颜色
+    var m,n,x,y,i;
+    for(i = 0; i <= 200; i += 0.04){
+      m = i;
+      n = -r * (((Math.sin(i) * Math.sqrt(Math.abs(Math.cos(i)))) / (Math.sin(i) + 1.4)) - 2 * Math.sin(i) + 2);
+      x = n * Math.cos(m) + dx;
+      y = n * Math.sin(m) + dy;
+      this.createPoint(x,y,c);
+    }
+  };
+function draw(){
+	var drawing = document.getElementById("myCanvas"),
+		pic = document.getElementById('flower'); //获取描边图片
+	drawing.width = '520';
+	drawing.height = '530';
+	if (drawing.getContext){
+		var content = drawing.getContext("2d"),
+			radian = 0,
+			radian_add = Math.PI/40;
+		content.translate(250,250);
+		function heart(){
+			X = getX1(radian);
+			Y = getY1(radian);
+			content.drawImage(pic,X,Y,25,25);   //在给定坐标绘制给定大小的图片
+			radian+=radian_add;
+			if (radian > (2*Math.PI)){ //绘制完整的心型线后取消间歇调用 
+				clearInterval(intervalId);
+			}
+		}
+		intervalId = setInterval(heart,100);  //设置间歇调用，间隔为100ms
+	}
+}
+
+/*function getX(t){   //获取玫瑰线的X坐标
+	return 100 * Math.sin(4*t)*Math.cos(t);
+}
+
+function getY(t){  //获取玫瑰线的Y坐标
+	return 100 * Math.sin(4*t)*Math.sin(t);
+}*/
+
+function getX1(t){  //获取心型线的X坐标
+	return 15*(16*Math.pow(Math.sin(t),3))
+}
+
+function getY1(t){  //获取心型线的Y坐标
+	return -15*(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t))
+}
+  function drawCanvas(){
+    // https://blog.csdn.net/zjw_python/article/details/78357550?utm_source=blogxgwz1 
+    //https://www.w3cschool.cn/weixinapp/weixinapp-api-canvas-arc.html
+    const query = wx.createSelectorQuery()
+    query.select('#myCanvas')
+      .fields({ node: true, size: true })
+      .exec((res) => {
+        const canvas = res[0].node
+        const ctx = canvas.getContext('2d')
+
+        const dpr = wx.getSystemInfoSync().pixelRatio
+        canvas.width = res[0].width * dpr
+        canvas.height = res[0].height * dpr
+        ctx.scale(dpr, dpr)
+
+        ctx.fillRect(0, 0, 100, 100)
+
+        
+        // var pic = document.getElementById('flower'); //获取描边图片
+        const pic = canvas.createImage()
+        // pic.onload = () => {
+        //   this._img = img
+        // }
+        pic.src = './flower.png'
+
+        ctx.width = '500';
+        ctx.height = '500';
+        if (ctx.getContext){
+          var content = ctx.getContext("2d"),
+            radian = 0,
+            radian_add = Math.PI/40;
+          content.translate(250,250);
+          function heart(){
+            X = getX1(radian);
+            Y = getY1(radian);
+            content.drawImage(pic,X,Y,25,25);   //在给定坐标绘制给定大小的图片
+            radian+=radian_add;
+            if (radian > (2*Math.PI)){ //绘制完整的心型线后取消间歇调用 
+              clearInterval(intervalId);
+            }
+          }
+          intervalId = setInterval(heart,100);  //设置间歇调用，间隔为100ms
+        }
+      })
+  };
+
+  window.onload=function(){
+    //this.drawCanvas();
+    this.draw();
+    // this.heartShape(80,250,100,"#f00");
+  }
+</script>
+</body>
+</html>
