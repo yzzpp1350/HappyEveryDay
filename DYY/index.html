@@ -14,11 +14,11 @@
          }
 		 
 .text{
-    width: 300px;
+    width: 600px;
     /*height: 200px;*/
     position: absolute;
     left: 50%;
-    margin-left: -150px;
+    margin-left: -300px;
     background-image: -webkit-linear-gradient(left,blue,#66ffff 10%,#cc00ff 20%,#CC00CC 30%, #CCCCFF 40%, #00FFFF 50%,#CCCCFF 60%,#CC00CC 70%,#CC00FF 80%,#66FFFF 90%,blue 100%);
     -webkit-text-fill-color: transparent;/* 将字体设置成透明色 */
     -webkit-background-clip: text;/* 裁剪背景图，使文字作为裁剪区域向外裁剪 */
@@ -31,7 +31,12 @@
 <body>
   <canvas type="2d" id="myCanvas"></canvas>
   <image id="flower" src="love.png" style="display:none;"></image>
-  <h1 class="text" style="text-align: center; margin-top: 540px; font-size: xxx-large;">YZZ❤DYY</h1>
+  <div id="divOp" style="opacity:1">
+  <h1 id="hh1" class="text" style="text-align: center; margin-top: 540px; font-size: xxx-large; opacity:0;">YZZ❤DYY</h1>
+  <h1 id="hh2" class="text" style="text-align: center; margin-top: 620px; font-size: xxx-large; opacity:0;">有生之年  有幸相遇</h1>
+  <h1 id="hh3" class="text" style="text-align: center; margin-top: 690px; font-size: xxx-large; opacity:0;">心之所向  行之所往</h1>
+  <h1 id="hh4" class="text" style="text-align: center; margin-top: 760px; font-size: xxx-large; opacity:0;">人生漫漫  小火慢炖</h1>
+  <h1 id="hh5" class="text" style="text-align: center; margin-top: 830px; font-size: xxx-large; opacity:0;">执子之手  与子偕老</h1></div>
 <script type="text/javascript">
 
   function createPoint(x,y,z) {
@@ -136,9 +141,42 @@ function getY1(t){  //获取心型线的Y坐标
       })
   };
 
+  var alpha=0;
+  var timer;
+function fadeInOut(obj,value){
+        clearInterval(timer);
+        timer=setInterval(
+        function(){
+              alpha+=value;
+			  if(alpha<=1){
+			  obj = document.getElementById("hh1");
+              obj.style.opacity=alpha;
+			  }
+			  if(alpha<=2){
+			  obj = document.getElementById("hh2");
+              obj.style.opacity=alpha-1;
+			  }
+			  if(alpha<=3){
+			  obj = document.getElementById("hh3");
+              obj.style.opacity=alpha-2;
+			  }
+			  if(alpha<=4){
+			  obj = document.getElementById("hh4");
+              obj.style.opacity=alpha-3;
+			  }
+			  if(alpha<=5){
+			  obj = document.getElementById("hh5");
+              obj.style.opacity=alpha-4;
+			  }
+              if(alpha>=5){
+              clearInterval(timer);
+             }
+       },100);
+}
   window.onload=function(){
-    //this.drawCanvas();
+  //this.drawCanvas();
     this.draw();
+    this.fadeInOut(document.getElementById("hh1"),0.07);
     // this.heartShape(80,250,100,"#f00");
   }
 </script>
