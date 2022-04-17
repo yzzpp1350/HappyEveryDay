@@ -1,5 +1,5 @@
 const confettiShower = [];
-const numConfettis = 200;
+const numConfettis = 80;
 const container = document.body;
 const colors = [
 "#f2abe7",
