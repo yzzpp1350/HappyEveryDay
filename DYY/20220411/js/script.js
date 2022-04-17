@@ -42,4 +42,4 @@ function animateConfetti() {
     confettiShower.push(animated);
   }
 }
-//animateConfetti();
+animateConfetti();
